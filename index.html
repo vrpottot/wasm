@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Экспорт в PDF: PixiJS + Skia CanvasKit</title>
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <div class="logo-container">
+          <span class="badge">Экспериментальный WASM</span>
+          <h1>Векторный Холст (PixiJS → Skia)</h1>
+          <p>Двусторонний рендеринг PixiJS и Skia (CanvasKit) с мостом событий и векторным экспортом в PDF.</p>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <div class="canvas-grid">
+          <!-- Pixi Canvas Column -->
+          <div class="canvas-card" id="card-pixi">
+            <div class="card-header">
+              <div class="status-indicator active"></div>
+              <h2>Холст PixiJS</h2>
+              <span class="tech-tag tag-pixi">WebGL / Canvas</span>
+            </div>
+            <div class="canvas-view">
+              <canvas id="pixi-canvas" width="600" height="500"></canvas>
+            </div>
+            <div class="card-footer">
+              <p>Нативный рендеринг через Canvas-рендерер PixiJS (интерактивный)</p>
+            </div>
+          </div>
+
+          <!-- Skia Canvas Column -->
+          <div class="canvas-card" id="card-skia">
+            <div class="card-header">
+              <div class="status-indicator active"></div>
+              <h2>Холст Skia CanvasKit</h2>
+              <span class="tech-tag tag-skia">Движок WASM</span>
+            </div>
+            <div class="canvas-view">
+              <canvas id="skia-canvas" width="600" height="500"></canvas>
+            </div>
+            <div class="card-footer">
+              <p>Зеркальный рендеринг через обертку Skia API (интерактивный через event-bridge)</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="control-panel">
+          <div class="panel-section actions">
+            <h3>Управление сценой</h3>
+            <div class="buttons-group">
+              <button id="btn-add-shape" class="btn btn-primary">
+                <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                Добавить случайную фигуру
+              </button>
+              <button id="btn-export-pdf" class="btn btn-success">
+                <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Экспорт в PDF (Векторный)
+              </button>
+              <button id="btn-clear" class="btn btn-danger">
+                <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></svg>
+                Очистить фигуры
+              </button>
+            </div>
+          </div>
+
+          <div class="panel-section logs">
+            <div class="logs-header">
+              <h3>Лог событий в реальном времени</h3>
+              <button id="btn-clear-logs" class="btn-text">Очистить лог</button>
+            </div>
+            <div id="event-log" class="log-output">
+              <div class="log-entry system">Система: Модуль CanvasKit инициализирован. Ожидание событий...</div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <p>Разработано с использованием Google Skia (WASM) и PixiJS • Тестовое задание 2026</p>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
